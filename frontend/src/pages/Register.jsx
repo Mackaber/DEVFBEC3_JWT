@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { registerUser } from "../api/users"
 import { useForm } from "react-hook-form"
 import { z } from 'zod'
@@ -13,11 +14,11 @@ const userSchema = z.object({
 })
 
 function Register() {
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm({
         resolver: zodResolver(userSchema)
     })
 
-
+    const [message, setMessage] = useState('')
 
     const handleSubmitManual = async (e) => {
        e.preventDefault()
@@ -32,8 +33,35 @@ function Register() {
     }
 
     const onSubmit = async (data) => {
-        const response = registerUser(data)
-        console.log(response)
+        setMessage('')
+        clearErrors()
+
+        const response = await registerUser(data)
+
+
+        if(response.errors?.username) {
+            setError('username', {
+                type: 'server',
+                message: response.errors.username
+            })
+        }
+
+        if(response.errors?.password) {
+            setError('password', {
+                type: 'server',
+                message: response.errors.password
+            })
+        }
+
+        if(response.failed) {
+            setError('root.server', {
+                type: 'server',
+                message: response.message
+            })
+            return
+        }
+
+        setMessage(response.message ?? 'Usuario registrado exitosamente')
     }
 
     return (
@@ -52,9 +80,11 @@ function Register() {
                         {errors.password && <p className="errors">{errors.password.message}</p>}
                     </div>
 
+                    {errors.root?.server && <p className="errors">{errors.root.server.message}</p>}
                     <button>Registrarse</button>
                 </form>
             </div>
+            {message && <p className='success'>{message}</p>}
         </>
     )
 }

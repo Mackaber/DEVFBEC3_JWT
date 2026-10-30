@@ -26,8 +26,12 @@ server.post('/register', (req, res) => {
     db.push({ username, password: hashedPassword })
     fs.writeFileSync('db.json', JSON.stringify(db), 'utf-8')
 
-    res.status(201).json({
-        message: "Usuario registrado exitosamente"
+    //res.status(201).json({
+    //    message: "Usuario registrado exitosamente"
+    //})
+
+    res.status(400).json({
+        message: "error y es tu culpa jejeje"
     })
 })
 
