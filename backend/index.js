@@ -38,10 +38,13 @@ server.post('/login', (req, res) => {
     db = JSON.parse(file)
 
     const user = db.find((user) => user.username == username)
+    const token = jwt.sign( { username: user.username, admin: false } , JWTSECRET, { expiresIn: '1w'})
+
     bcrypt.compare(password, user?.password, (err, result) => {
         if (result) {
             res.status(200).json({
-                message: "Inicio de sesión exitoso"
+                message: "Inicio de sesión exitoso",
+                token: token
             })
         } else {
             res.status(401).json({
