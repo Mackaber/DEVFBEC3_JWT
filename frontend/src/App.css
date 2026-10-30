@@ -182,3 +182,17 @@
     border-right-color: var(--border);
   }
 }
+
+.login_register {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+}
+
+.errors {
+  color: red;
+  font-size: 14px;
+}
