@@ -12,5 +12,8 @@ export default defineConfig({
         main: "index.html",
       },
     },
+    // Use relative assets directory for static files
+    // So it appears as "assets/" (without leading slash) in the generated HTML
+    assetsDir: "./assets",
   },
 });
