@@ -54,6 +54,10 @@ server.post("/register", async (req, res) => {
     const user = new User({ username, password: hashedPassword })
     await user.save()
 
+    return res.status(201).json({
+      message: "Usuario registrado exitosamente",
+    });
+
   } catch (error) {
     console.error("Error al registrar el usuario:", error.message);
 
