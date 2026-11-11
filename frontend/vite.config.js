@@ -5,15 +5,13 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: "../docs",
+    outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
       input: {
         main: "index.html",
       },
     },
-    // Use relative assets directory for static files
-    // So it appears as "assets/" (without leading slash) in the generated HTML
-    assetsDir: "./assets",
+    assetsDir: "assets",
   },
 });
