@@ -32,6 +32,9 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Change directory to frontend
+        run: cd frontend
+
       - name: Install dependencies
         run: npm ci
 
