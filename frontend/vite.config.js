@@ -3,7 +3,6 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/DEVFBEC3_JWT/",
   plugins: [react()],
   build: {
     outDir: "dist",
