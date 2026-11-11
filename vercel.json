@@ -1,0 +1,37 @@
+{
+    "services": {
+        "frontend": {
+            "root": "frontend",
+            "framework": "vite",
+            "bindings": [
+                {
+                    "type": "service",
+                    "service": "backend",
+                    "format": "url",
+                    "env": "BACKEND_INTERNAL_URL"
+                }
+            ]
+        },
+        "backend": {
+            "root": "backend",
+            "entrypoint": "index.js",
+            "framework": "express"
+        }
+    },
+    "rewrites": [
+        {
+            "source": "/api(/.*)?",
+            "destination": {
+                "type": "service",
+                "service": "backend"
+            }
+        },
+        {
+            "source": "/(.*)",
+            "destination": {
+                "type": "service",
+                "service": "frontend"
+            }
+        }
+    ]
+}
